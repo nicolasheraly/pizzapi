@@ -1,0 +1,4 @@
+pizzapi_core:
+    resource: "@PizzapiCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+

@@ -1,0 +1,7 @@
+pizzapi_core_homepage:
+    path:     /
+    defaults: { _controller: PizzapiCoreBundle:Default:index }
+
+pizzapi_order:
+    path: /order/{id}
+    defaults: { _controller: PizzapiCoreBundle:Default:order }
