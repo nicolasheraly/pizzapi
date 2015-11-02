@@ -78,3 +78,14 @@ swiftmailer:
     spool:     { type: memory }
 
 twitter_bootstrap: ~
+
+snc_redis:
+    clients:
+        cache:
+            type: predis
+            alias: cache
+            dsn: redis://localhost:6379
+            options:
+                profile: 2.2
+                connection_timeout: 10
+                read_write_timeout: 30

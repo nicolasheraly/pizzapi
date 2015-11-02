@@ -22,19 +22,8 @@ class DefaultController extends Controller
         $client = new Client();
         $apiUrl = $this->getParameter("api_url");
 
-        try {
-            $res = $client->request('GET', $apiUrl . "/pizzas", [
-                'timeout' => 5
-            ]);
-            $pizzaList = json_decode($res->getBody()->getContents(), true);
-        } catch (ClientException $e) {
-            var_dump($e->getMessage());
-            die;
-        } catch (\Exception $e) {
-            $content = $this->render('TwigBundle:Exception:error404.html.twig');
-
-            return new Response($content, 404, array('Content-Type', 'text/html'));
-        }
+        $redis = $this->get('snc_redis.cache');
+        $pizzaList = json_decode($redis->get('pizzas'), true);
 
         return $this->render('PizzapiCoreBundle:Default:index.html.twig', array('pizzas' => $pizzaList));
     }
@@ -46,7 +35,7 @@ class DefaultController extends Controller
 
         try {
             $res = $client->request('POST', $apiUrl . '/orders', [
-                'json'      => ['id' => (int)$id],
+                'json'      => ['id' => (int) $id],
                 'timeout' => 5
             ]);
             $command = json_decode($res->getBody()->getContents(), true);

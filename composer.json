@@ -21,7 +21,8 @@
         "guzzlehttp/guzzle": "^6.1",
         "twig/extensions": "~1.2",
         "evheniy/twitter-bootstrap-bundle": "^1.3",
-        "snc/redis-bundle": "1.1.9"
+        "snc/redis-bundle": "1.1.9",
+        "predis/predis": "dev-master"
 
     },
     "require-dev": {
