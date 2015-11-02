@@ -1,21 +1,32 @@
-<h1>Liste des pizzas</h1>
+{% extends '::base.html.twig' %}
 
-{% for flashMessage in app.session.flashbag.get('success') %}
-    <div class="flash-success">
-        {{ flashMessage }}
+{% block body %}
+    <div class="container">
+        <h1 class="text-center" style="margin-bottom: 40px;">Liste des pizzas</h1>
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="flash-success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+                <th>Pizza</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                {% for pizza in pizzas %}
+                    <tr>
+                        <td>
+                            {{ pizza.name }} {{ (pizza.price / 100) | localizedcurrency('EUR') }}
+                        </td>
+                        <td>
+                            <a class="btn btn-info" href="{{ url('pizzapi_order', { 'id' : pizza.id }) }}">Commander</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-{% endfor %}
-
-<div>
-    {% for pizza in pizzas %}
-        <div>
-            {{ pizza.name }} {{ (pizza.price / 100) | localizedcurrency('EUR') }}
-
-            <a href="{{ url('pizzapi_order', { 'id' : pizza.id }) }}">Commander</a>
-
-            {% if pizza.status is defined %}
-                {{ pizza.status }}
-            {% endif %}
-        </div>
-    {% endfor %}
-</div>
+{% endblock %}
