@@ -36,8 +36,8 @@ class UpdateRedisCacheCommand extends ContainerAwareCommand
                         $client->post('/metrics', array(
                             'gauges' => array(
                                 array('name' => 'ResponseTime', 'value' => $stats->getTransferTime(), 'source' => 'get/pizzas'),
-                                array('name' => 'ResponseStatusCode', 'value' => $stats->getResponse()->getStatusCode(), 'source' => 'get/pizzas'),
-                                array('name' => 'ApiRequested', 'value' => , 'source' => 'get/pizzas')
+                                array('name' => 'ResponseStatusCode', 'value' => 1, $stats->getResponse()->getStatusCode(), 'source' => 'get/pizzas'),
+                                array('name' => 'ApiRequested', 'value' => 1, 'source' => 'get/pizzas')
                             )
                         ));
 
