@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cab35ffea94ee365670cb8bb8821133e",
-    "content-hash": "f509def2e9fd9dae84e32099ae419749",
+    "hash": "4174a75f4cc407221460c178abf8183c",
+    "content-hash": "3509be7c6055a14c91dfa255b0e27875",
     "packages": [
         {
             "name": "components/jquery",
@@ -1297,6 +1297,54 @@
             "time": "2015-10-15 01:33:42"
         },
         {
+            "name": "kriswallsmith/buzz",
+            "version": "v0.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kriswallsmith/Buzz.git",
+                "reference": "d4041666c3ffb379af02a92dabe81c904b35fab8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/d4041666c3ffb379af02a92dabe81c904b35fab8",
+                "reference": "d4041666c3ffb379af02a92dabe81c904b35fab8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "ext-curl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Buzz": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Lightweight HTTP client",
+            "homepage": "https://github.com/kriswallsmith/Buzz",
+            "keywords": [
+                "curl",
+                "http client"
+            ],
+            "time": "2015-06-25 17:26:56"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.17.2",
             "source": {
@@ -1372,6 +1420,49 @@
                 "psr-3"
             ],
             "time": "2015-10-14 12:51:02"
+        },
+        {
+            "name": "nesQuick/Metrics",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nesQuick/PHP-Metrics-Client.git",
+                "reference": "173e31ee3da814e66976e4c0a73f6660544077cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nesQuick/PHP-Metrics-Client/zipball/173e31ee3da814e66976e4c0a73f6660544077cd",
+                "reference": "173e31ee3da814e66976e4c0a73f6660544077cd",
+                "shasum": ""
+            },
+            "require": {
+                "kriswallsmith/buzz": "~0.13",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Metrics": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ole 'nesQuick' Michaelis",
+                    "email": "ole.michaelis@googlemail.com",
+                    "homepage": "http://www.codestars.eu"
+                }
+            ],
+            "description": "PHP Client for Librato Metrics APIs.",
+            "keywords": [
+                "Metrics",
+                "api",
+                "client"
+            ],
+            "time": "2015-02-25 21:28:16"
         },
         {
             "name": "predis/predis",
