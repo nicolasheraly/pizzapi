@@ -5,6 +5,8 @@ namespace Pizzapi\CoreBundle\Controller;
 use Ejsmont\CircuitBreaker\Factory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\TransferStats;
+use Metrics\Client as LibratoClient;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,13 +41,32 @@ class DefaultController extends Controller
     {
         $apiUrl = $this->getParameter("api_url");
         $client = new Client();
-
+        $container = $this->container;
         if ($this->getBreaker()->isAvailable('order')) {
+            $LibratoClient = new LibratoClient($container->getParameter("librato_email"), $container->getParameter("librato_token"));
+            $LibratoClient->post('/metrics', array(
+                'gauges' => array(
+                    array('name' => 'CircuitBreaker', 'value' => 0)
+                )
+            ));
             try {
                 $res = $client->request('POST', $apiUrl . '/orders', [
                     'json'    => ['id' => (int) $id],
-                    'timeout' => 2
-                ]);
+                    'timeout' => 2,
+                    'on_stats' => function (TransferStats $stats) use ($container)  {
+
+                        if ($stats->hasResponse()) {
+                            $client = new LibratoClient($container->getParameter("librato_email"), $container->getParameter("librato_token"));
+                            $client->post('/metrics', array(
+                                'gauges' => array(
+                                    array('name' => 'ResponseTime', 'value' => $stats->getTransferTime()),
+                                    array('name' => 'ResponseStatusCode', 'value' => $stats->getResponse()->getStatusCode()),
+                                     array('name' => 'ApiRequested', 'value' => 1)
+                                )
+                            ));
+
+                        }
+                    }]);
                 $command = json_decode($res->getBody()->getContents(), true);
 
                 $this->addFlash(
@@ -56,6 +77,12 @@ class DefaultController extends Controller
                 return $this->redirect($this->generateUrl('pizzapi_core_homepage'));
             } catch (\Exception $e) {
                 $this->getBreaker()->reportFailure('order');
+                $LibratoClient = new LibratoClient($container->getParameter("librato_email"), $container->getParameter("librato_token"));
+                $LibratoClient->post('/metrics', array(
+                    'gauges' => array(
+                        array('name' => 'CircuitBreaker', 'value' => 1)
+                    )
+                ));
                 $content = $this->render('TwigBundle:Exception:error404.html.twig');
 
                 return new Response($content, 404, array('Content-Type', 'text/html'));
