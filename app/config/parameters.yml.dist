@@ -19,3 +19,5 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
     api_url: http://pizzapi.herokuapp.com
     locale: fr
+    librato_token: b32cfd44b49a52130f3404dcdd2afe00eac484628bf1eebae92378be1d02bb86
+    librato_email: clement.petitcunot@gmail.com
