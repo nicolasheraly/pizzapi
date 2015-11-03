@@ -22,12 +22,19 @@
         "twig/extensions": "~1.2",
         "evheniy/twitter-bootstrap-bundle": "^1.3",
         "snc/redis-bundle": "1.1.9",
-        "predis/predis": "dev-master"
-
+        "predis/predis": "dev-master",
+        "components/jquery": "^2.1",
+        "bicatu-artur/php-circuit-breaker": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bicatu/php-circuit-breaker"
+        }
+    ],
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

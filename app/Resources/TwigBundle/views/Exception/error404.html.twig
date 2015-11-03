@@ -7,6 +7,16 @@
         <h2 class="text-center" style="margin-bottom: 40px;">Une exception sauvage est apparue</h2>
         <p class="text-center">
             <img src="http://www.pokepedia.fr/images/thumb/f/f5/Boustiflor-RFVF.png/250px-Boustiflor-RFVF.png">
+            <img src="{{ asset('images/pokeball.png') }}" width="50" height="50">
         </p>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            console.log( "ready!" );
+        });
+    </script>
 {% endblock %}

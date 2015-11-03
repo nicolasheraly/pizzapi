@@ -5,7 +5,7 @@
         <h1 class="text-center" style="margin-bottom: 40px;">Liste des pizzas</h1>
 
         {% for flashMessage in app.session.flashbag.get('success') %}
-            <div class="flash-success">
+            <div class="flash-success alert alert-success">
                 {{ flashMessage }}
             </div>
         {% endfor %}
@@ -22,7 +22,11 @@
                             {{ pizza.name }} {{ (pizza.price / 100) | localizedcurrency('EUR') }}
                         </td>
                         <td>
-                            <a class="btn btn-info" href="{{ url('pizzapi_order', { 'id' : pizza.id }) }}">Commander</a>
+                            {% if available %}
+                                <a class="btn btn-info" href="{{ url('pizzapi_order', { 'id' : pizza.id }) }}">Commander</a>
+                            {% else %}
+                                Service indisponible
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

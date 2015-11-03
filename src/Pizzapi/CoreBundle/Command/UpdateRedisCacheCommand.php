@@ -31,6 +31,8 @@ class UpdateRedisCacheCommand extends ContainerAwareCommand
             $redis->append('pizzas', json_encode($pizzaList));
             $output->writeln("Update redis cache completed !");
         } catch (\Exception $e) {
+            var_dump($e->getMessage()); die;
+
         }
     }
 }

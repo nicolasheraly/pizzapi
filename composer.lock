@@ -4,9 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "89041b5bbc5598df0c6efd23798004c8",
-    "content-hash": "84690a3a558304dc4d978541c2a5ac90",
+    "hash": "cab35ffea94ee365670cb8bb8821133e",
+    "content-hash": "f509def2e9fd9dae84e32099ae419749",
     "packages": [
+        {
+            "name": "components/jquery",
+            "version": "2.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/jquery.git",
+                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/jquery/zipball/7b1d1104656a092423fbfba13c5920e9bbba290c",
+                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "jquery.js"
+                    ],
+                    "files": [
+                        "jquery.min.js",
+                        "jquery.min.map",
+                        "jquery-migrate.js",
+                        "jquery-migrate.min.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Resig",
+                    "email": "jeresig@gmail.com"
+                }
+            ],
+            "description": "jQuery JavaScript Library",
+            "homepage": "http://jquery.com",
+            "time": "2015-05-08 05:04:47"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.7",
@@ -768,6 +810,51 @@
                 "orm"
             ],
             "time": "2015-08-31 12:59:39"
+        },
+        {
+            "name": "ejsmont-artur/php-circuit-breaker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bicatu/php-circuit-breaker.git",
+                "reference": "e23a51efbf85fca9af6dd97b3f43e59f467c2fc9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bicatu/php-circuit-breaker/zipball/e23a51efbf85fca9af6dd97b3f43e59f467c2fc9",
+                "reference": "e23a51efbf85fca9af6dd97b3f43e59f467c2fc9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Ejsmont": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Artur Ejsmont",
+                    "homepage": "http://artur.ejsmont.org/blog/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Circuit Breaker component",
+            "homepage": "https://github.com/ejsmont-artur/php-circuit-breaker",
+            "keywords": [
+                "circuit breaker",
+                "error handling",
+                "graceful"
+            ],
+            "support": {
+                "source": "https://github.com/bicatu/php-circuit-breaker/tree/master"
+            },
+            "time": "2015-09-23 02:13:17"
         },
         {
             "name": "evheniy/jquery-bundle",
@@ -2276,7 +2363,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "predis/predis": 20
+        "predis/predis": 20,
+        "ejsmont-artur/php-circuit-breaker": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
