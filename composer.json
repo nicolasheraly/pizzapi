@@ -24,7 +24,9 @@
         "snc/redis-bundle": "1.1.9",
         "predis/predis": "dev-master",
         "components/jquery": "^2.1",
-        "bicatu-artur/php-circuit-breaker": "dev-master"
+        "ejsmont-artur/php-circuit-breaker": "dev-master",
+        "nesQuick/Metrics": "^1.0"
+
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

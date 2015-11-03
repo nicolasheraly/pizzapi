@@ -16,14 +16,10 @@ class DefaultController extends Controller
     /**
      * List pizza.
      *
-     * @param $name
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
-        $client = new Client();
-        $apiUrl = $this->getParameter("api_url");
-
         $pizzaList = json_decode($this->getRedisInstance()->get('pizzas'), true);
 
         return $this->render('PizzapiCoreBundle:Default:index.html.twig', array(
@@ -32,6 +28,13 @@ class DefaultController extends Controller
         ));
     }
 
+    /**
+     * Order a pizza.
+     *
+     * @param Request $request
+     * @param $id The pizza id.
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
     public function orderAction(Request $request, $id)
     {
         $apiUrl = $this->getParameter("api_url");
@@ -51,8 +54,6 @@ class DefaultController extends Controller
                 );
 
                 return $this->redirect($this->generateUrl('pizzapi_core_homepage'));
-            } catch (ClientException $e) {
-                var_dump($e->getMessage()); die;
             } catch (\Exception $e) {
                 $this->getBreaker()->reportFailure('order');
                 $content = $this->render('TwigBundle:Exception:error404.html.twig');
