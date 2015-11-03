@@ -32,7 +32,6 @@ class UpdateRedisCacheCommand extends ContainerAwareCommand
             $output->writeln("Update redis cache completed !");
         } catch (\Exception $e) {
             var_dump($e->getMessage()); die;
-
         }
     }
 }
