@@ -38,6 +38,7 @@ class UpdateRedisCacheCommand extends ContainerAwareCommand
                                 array('name' => 'ResponseTime', 'value' => $stats->getTransferTime(), 'source' => 'get/pizzas'),
                                 array('name' => 'ResponseStatusCode', 'value' => $stats->getResponse()->getStatusCode(), 'source' => 'get/pizzas'),
                                 array('name' => 'ApiRequested', 'value' => 2, 'source' => 'get/pizzas')
+
                             )
                         ));
 
@@ -50,7 +51,6 @@ class UpdateRedisCacheCommand extends ContainerAwareCommand
             $output->writeln("Update redis cache completed !");
         } catch (\Exception $e) {
             var_dump($e->getMessage()); die;
-
         }
     }
 }
