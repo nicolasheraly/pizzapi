@@ -19,6 +19,7 @@ class UpdateRedisCacheCommand extends ContainerAwareCommand
         ;
     }
     protected $responseStats;
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $apiUrl = $this->getContainer()->getParameter('api_url');

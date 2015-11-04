@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-    private $redis;
+    private $predis;
 
     /**
      * List pizza.
@@ -87,11 +87,11 @@ class DefaultController extends Controller
      */
     private function getRedisInstance()
     {
-        if (is_null($this->redis)) {
-            $this->redis = new \Redis();
-            $this->redis->connect('localhost:6379');
+        if (is_null($this->predis)) {
+            $this->predis = new \Predis\Client(getenv('REDIS_URL'));
+            $this->predis->connect('localhost:6379');
         }
 
-        return $this->redis;
+        return $this->predis;
     }
 }
