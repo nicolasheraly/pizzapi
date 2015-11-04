@@ -23,7 +23,8 @@ class UpdateRedisCacheCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $apiUrl = $this->getContainer()->getParameter('api_url');
-        $redis = $this->getContainer()->get('snc_redis.cache');
+        $predis = new \Predis\Client(getenv('REDIS_URL'));
+
 
         try {
 
@@ -47,7 +48,7 @@ class UpdateRedisCacheCommand extends ContainerAwareCommand
 
 
             $pizzaList = json_decode($res->getBody()->getContents(), true);
-            $redis->set('pizzas', json_encode($pizzaList));
+            $predis->set('pizzas', json_encode($pizzaList));
             $output->writeln("Update redis cache completed !");
         } catch (\Exception $e) {
             var_dump($e->getMessage()); die;
