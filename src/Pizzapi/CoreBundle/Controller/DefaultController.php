@@ -25,8 +25,7 @@ class DefaultController extends Controller
         $pizzaList = json_decode($this->getRedisInstance()->get('pizzas'), true);
 
         return $this->render('PizzapiCoreBundle:Default:index.html.twig', array(
-            'pizzas'    => $pizzaList,
-            'available' => $this->getBreaker()->isAvailable('order')
+            'pizzas'    => $pizzaList
         ));
     }
 
