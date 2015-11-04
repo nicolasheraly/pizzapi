@@ -52,7 +52,7 @@ class DefaultController extends Controller
             try {
                 $res = $client->request('POST', $apiUrl . '/orders', [
                     'json'    => ['id' => (int) $id],
-                    'timeout' => 2,
+                    'timeout' => 30,
                     'on_stats' => function (TransferStats $stats) use ($container)  {
 
                         if ($stats->hasResponse()) {
