@@ -42,51 +42,37 @@ class DefaultController extends Controller
         $apiUrl = $this->getParameter("api_url");
         $client = new Client();
         $container = $this->container;
-        if ($this->getBreaker()->isAvailable('order')) {
-            $LibratoClient = new LibratoClient($container->getParameter("librato_email"), $container->getParameter("librato_token"));
-            $LibratoClient->post('/metrics', array(
-                'gauges' => array(
-                    array('name' => 'CircuitBreaker', 'value' => 0)
-                )
-            ));
-            try {
-                $res = $client->request('POST', $apiUrl . '/orders', [
-                    'json'    => ['id' => (int) $id],
-                    'timeout' => 2,
-                    'on_stats' => function (TransferStats $stats) use ($container)  {
 
-                        if ($stats->hasResponse()) {
-                            $client = new LibratoClient($container->getParameter("librato_email"), $container->getParameter("librato_token"));
-                            $client->post('/metrics', array(
-                                'gauges' => array(
-                                    array('name' => 'ResponseTime', 'value' => $stats->getTransferTime()),
-                                    array('name' => 'ResponseStatusCode', 'value' => $stats->getResponse()->getStatusCode()),
-                                     array('name' => 'ApiRequested', 'value' => 1)
-                                )
-                            ));
+        try {
+            $res = $client->request('POST', $apiUrl . '/orders', [
+                'json'    => ['id' => (int) $id],
+                'timeout' => 2,
+                'on_stats' => function (TransferStats $stats) use ($container)  {
 
-                        }
-                    }]);
-                $command = json_decode($res->getBody()->getContents(), true);
+                    if ($stats->hasResponse()) {
+                        $client = new LibratoClient($container->getParameter("librato_email"), $container->getParameter("librato_token"));
+                        $client->post('/metrics', array(
+                            'gauges' => array(
+                                array('name' => 'ResponseTime', 'value' => $stats->getTransferTime()),
+                                array('name' => 'ResponseStatusCode', 'value' => $stats->getResponse()->getStatusCode()),
+                                 array('name' => 'ApiRequested', 'value' => 1)
+                            )
+                        ));
 
-                $this->addFlash(
-                    'success',
-                    "Votre commande ". $command['id'] ." a bien été passée !"
-                );
+                    }
+                }]);
+            $command = json_decode($res->getBody()->getContents(), true);
 
-                return $this->redirect($this->generateUrl('pizzapi_core_homepage'));
-            } catch (\Exception $e) {
-                $this->getBreaker()->reportFailure('order');
-                $LibratoClient = new LibratoClient($container->getParameter("librato_email"), $container->getParameter("librato_token"));
-                $LibratoClient->post('/metrics', array(
-                    'gauges' => array(
-                        array('name' => 'CircuitBreaker', 'value' => 1)
-                    )
-                ));
-                $content = $this->render('TwigBundle:Exception:error404.html.twig');
+            $this->addFlash(
+                'success',
+                "Votre commande ". $command['id'] ." a bien été passée !"
+            );
 
-                return new Response($content, 404, array('Content-Type', 'text/html'));
-            }
+            return $this->redirect($this->generateUrl('pizzapi_core_homepage'));
+        } catch (\Exception $e) {
+            $content = $this->render('TwigBundle:Exception:error404.html.twig');
+
+            return new Response($content, 404, array('Content-Type', 'text/html'));
         }
 
         $content = $this->render('TwigBundle:Exception:error404.html.twig');
@@ -107,15 +93,5 @@ class DefaultController extends Controller
         }
 
         return $this->redis;
-    }
-
-    /**
-     * Get breaker instance.
-     */
-    private function getBreaker()
-    {
-        $breakerFactory = new Factory();
-
-        return $breakerFactory->getRedisInstance($this->getRedisInstance(), 1, 10);
     }
 }
