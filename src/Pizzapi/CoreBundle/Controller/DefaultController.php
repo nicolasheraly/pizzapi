@@ -88,7 +88,6 @@ class DefaultController extends Controller
     {
         if (is_null($this->predis)) {
             $this->predis = new \Predis\Client(getenv('REDIS_URL'));
-            $this->predis->connect('localhost:6379');
         }
 
         return $this->predis;
