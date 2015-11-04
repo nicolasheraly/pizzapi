@@ -84,7 +84,7 @@ snc_redis:
         cache:
             type: predis
             alias: cache
-            dsn: redis://localhost:6379
+            dsn: redis://h:pgsakgrhhgmhdavl5ijnr67cim@ec2-54-225-132-156.compute-1.amazonaws.com:19489
             options:
                 profile: 2.2
                 connection_timeout: 10

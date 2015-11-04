@@ -25,15 +25,3 @@ monolog:
             level: debug
         console:
             type:  console
-
-
-snc_redis:
-    clients:
-        cache:
-            type: predis
-            alias: cache
-            dsn: redis://h:pgsakgrhhgmhdavl5ijnr67cim@ec2-54-225-132-156.compute-1.amazonaws.com:19489
-            options:
-                profile: 2.2
-                connection_timeout: 10
-                read_write_timeout: 30
